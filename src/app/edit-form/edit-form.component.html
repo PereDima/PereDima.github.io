@@ -1,0 +1,63 @@
+
+  <form class="form-container" [formGroup]="form" (ngSubmit)="savePost()">
+    <span class="close-btn" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </span>
+    <br>
+    <div class="inputs">
+    <mat-form-field appearance="standard">
+      <mat-label>Title</mat-label>
+      <input
+      [(ngModel)]="editableData.title"
+        type="text"
+        matInput
+        placeholder="Title"
+        formControlName="title"
+        required
+      />
+      <mat-error *ngIf="form.get('title')?.errors?.required && form.get('title')?.touched">
+        Title is <strong>required</strong> !
+      </mat-error>
+      <mat-error *ngIf="form.get('title')?.touched && form.get('title')?.value.length < 5">
+        Title should have at least 5 characters!
+      </mat-error> 
+      <mat-error *ngIf="form.get('title')?.touched && form.get('title')?.value.length > 55">
+        Title is too long! Max 55 characters!
+      </mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div class="inputs text-area">
+    <mat-form-field appearance="standard">
+      <mat-label>Description</mat-label>
+      <textarea
+      [(ngModel)]="editableData.body"
+        type="text"
+        matInput
+        placeholder="Description"
+        formControlName="body"
+        required
+      ></textarea>
+      <mat-error *ngIf="form.get('body')?.errors?.required && form.get('body')?.touched">
+        Description is <strong>required</strong> !
+      </mat-error>
+      <mat-error *ngIf="form.get('body')?.touched && form.get('body')?.value.length < 15">
+        Description should have at least 15 characters!
+      </mat-error>
+      <mat-error *ngIf="form.get('body')?.touched && form.get('body')?.value.length > 230">
+        Description is too long! Max 230 characters!
+      </mat-error>
+    </mat-form-field>
+  </div>
+  
+    <div class="button" >
+      <button
+      type="submit"
+      [disabled]="form.invalid ? true : false">
+      Save
+    </button>
+    </div>
+  
+  
+  </form>
+

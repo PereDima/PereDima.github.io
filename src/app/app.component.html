@@ -1,68 +1,24 @@
-<div class="green">
 
-  <div class="main-header">
-    <h1>Welcome to fake announcement Maker!</h1>
-  </div>
+  <div class="green">
+
+    <div class="main-header">
+      <h1>Welcome to fake announcement Maker!</h1>
+    </div>
   
+    <mat-form-field class="example-form-field search-input" appearance="fill">
+      <mat-label>Search post...</mat-label>
+      <input  matInput type="text" [(ngModel)]="search">
+      <button class="delete-btn" *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
-<form class="form-container" [formGroup]="form" (ngSubmit)="addPost()">
-
-  <div class="inputs">
-  <mat-form-field appearance="standard">
-    <mat-label>Title</mat-label>
-    <input
-      type="text"
-      matInput
-      placeholder="Title"
-      formControlName="title"
-      required
-    />
-    <mat-error *ngIf="form.get('title')?.errors?.required && form.get('title')?.touched">
-      Title is <strong>required</strong> !
-    </mat-error>
-    <mat-error *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
-      Title should have at least 5 characters!
-    </mat-error>
-  </mat-form-field>
-</div>
-
-<div class="inputs text-area">
-  <mat-form-field appearance="standard">
-    <mat-label>Description</mat-label>
-    <input
-      type="text"
-      matInput
-      placeholder="Description"
-      formControlName="body"
-      required
-    />
-    <mat-error *ngIf="form.get('body')?.errors?.required && form.get('body')?.touched">
-      Description is <strong>required</strong> !
-    </mat-error>
-    <mat-error *ngIf="form.get('body')?.touched && form.get('body')?.invalid">
-      Description should have at least 15 characters!
-    </mat-error>
-  </mat-form-field>
-</div>
-
-  <div class="button">
-    <button
-    type="submit"
-    [disabled]="form.invalid ? true : false">
-    Add Post
-  </button>
-  </div>
-  
-  <div class="button">
-
-  </div>
-
-</form>
+    <button class="button" mat-button (click)="openDialog()">ADD NEW POST</button>
 
 
     <div class="main" *ngIf="posts.length; else noPosts">
-        <div class="container" *ngFor="let post of posts">
-          <button class="delete-btn" (click)="deletePost(post.id!)"><mat-icon>close</mat-icon></button>
+        <div class="container" *ngFor="let post of posts | filter: search">
+          <button class="delete-btn card-delete-btn" (click)="deletePost(post.id!)"><mat-icon>close</mat-icon></button>
           <p class="date">{{post.date}}</p>
           <div class="header">
             <h3 class="centered">{{post.title | titlecase}}</h3>
@@ -71,7 +27,7 @@
             <img src="https://source.unsplash.com/200x120" alt="">
           </div>
           <p class="text">{{post.body}}</p>
-          <!-- <button (click)="editPost(post)">edit</button> -->
+          <button class="button button-edit" (click)="editPost(post)">Edit</button>
         </div>
     </div>
 
@@ -82,8 +38,7 @@
       </ng-template>
 
 
-
-</div>
+  </div>
   
 
 

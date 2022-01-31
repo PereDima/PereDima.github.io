@@ -1,69 +1,77 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Post } from './interfaces';
 import { PostService } from './post-service';
-import { delay } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { PostFormComponent } from './post-form/post-form.component';
+import { EditFormComponent } from './edit-form/edit-form.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, DoCheck {
   public form!: FormGroup;
   public posts: Post[] = [];
+  public ind: number = 0;
+  public postForEdit: any;
+  public editedPost: any;
+  public search = '';
 
-  public loading = false;
-
-  constructor(private http: HttpClient, private postService: PostService) {}
-
-  ngOnInit(): void {
-
-    this.postService
-      .loadPosts()
-      .subscribe((post) => {
-        this.posts = post;
-      });
-
-    this.form = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-        Validators.minLength(5),
-      ]),
-      body: new FormControl('', [
-        Validators.required,
-        Validators.minLength(15),
-      ]),
+  constructor(
+    private http: HttpClient,
+    private postService: PostService,
+    private dialog: MatDialog
+  ) {
+    this.postService.formData.subscribe((addedPost) => {
+      this.posts.unshift(addedPost);
+    });
+    this.postService.editedData.subscribe((readyPost) => {
+      this.editedPost = { ...readyPost, date: new Date().toLocaleDateString() };
     });
   }
 
-  public addPost() {
-    const newPost: Post = {
-      title: this.form.get('title')?.value,
-      body: this.form.get('body')?.value,
-      date: new Date().toLocaleDateString(),
-    };
-    this.postService.addPost(newPost)
-      .subscribe((resp) => {
-        this.posts.unshift(resp);
-      });
+  ngOnInit(): void {
+    this.postService.loadPosts().subscribe((post) => {
+      this.posts = post;
+    });
+  }
 
-    this.form.reset();
+  ngDoCheck() {
+    this.postService.setForEditData(this.postForEdit);
+    if (this.editedPost) {
+      this.posts[this.editedPost.id - 1] = this.editedPost;
+      this.editedPost = null;
+    }
   }
 
   public editPost(post: Post) {
-    this.form.setValue({
+    this.postService.setId(post.id!);
+    this.dialog.open(EditFormComponent, {
+      data: {},
+      panelClass: 'glass',
+    });
+    this.postService.setForEditData(this.postForEdit);
+    return (this.postForEdit = {
       title: post.title,
-      body: post.body
-    })
+      body: post.body,
+    });
   }
 
-
   public deletePost(id: number) {
-    this.http.delete<void>(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    this.http
+      .delete<void>(`https://jsonplaceholder.typicode.com/posts/${id}`)
       .subscribe(() => {
         this.posts = this.posts.filter((p) => p.id !== id);
-    })
+      });
+  }
+
+  public openDialog() {
+    this.dialog.open(PostFormComponent, {
+      data: {},
+      panelClass: 'glass',
+    });
   }
 }

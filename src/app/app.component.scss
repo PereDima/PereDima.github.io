@@ -1,11 +1,58 @@
+::ng-deep .glass {
+  mat-dialog-container {
+    background: rgba(255, 255, 255, 0.464);
+    background: linear-gradient(
+      to right bottom,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.3)
+    );
+    border-radius: 1rem;
+    z-index: 1;
+    backdrop-filter: blur(2px);
+    min-height: 60vh;
+  }
+}
+
+.search-input {
+  width: 50vw;
+}
+
+.delete-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
+
 .green {
-  padding: 3rem 0 ;
-  background: radial-gradient(circle, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+  padding: 3rem 0;
+  background: radial-gradient(
+    circle,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .main-header {
     text-align: center;
     margin-bottom: 3rem;
+  }
+
+  .button {
+    width: 140px;
+    min-height: 50px;
+    background: linear-gradient(
+      145deg,
+      rgba(34, 193, 195, 1) 0%,
+      rgba(105, 152, 5, 0.635) 100%
+    );
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 150px;
+    border: none;
+    cursor: pointer;
   }
 
   .main {
@@ -16,47 +63,59 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-bottom: 3rem;
-  
+
     .container {
       display: flex;
       flex-direction: column;
-      align-content: stretch;
+      align-items: center;
       justify-content: center;
-      background: linear-gradient(-45deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25));    
-      box-shadow: 12px 12px 16px 0 rgb(0 0 0 / 25%), -8px -8px 12px 0 rgb(255 255 255 / 30%);
+      background: linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 0.22),
+        rgba(255, 255, 255, 0.25)
+      );
+      box-shadow: 12px 12px 16px 0 rgb(0 0 0 / 25%),
+        -8px -8px 12px 0 rgb(255 255 255 / 30%);
       border-radius: 50px;
-      height: 400px;
+      height: 450px;
       width: 250px;
-      margin: 5rem 2rem 2rem ;
-      padding: 2rem;
+      margin: 5rem 2rem 2rem;
+      padding: 1.5rem;
       position: relative;
 
-      .delete-btn {
+      .button-edit {
+        width: 100px;
+        min-height: 30px;
+        position: absolute;
+        top: 90%;
+      }
+
+      .card-delete-btn {
         position: absolute;
         right: 8%;
         top: 5%;
-        border: none;
-        background: rgba(255, 255, 255, 0);
-        cursor: pointer;
       }
-  
+
       .img {
         max-width: 200px;
         max-height: 120px;
         align-self: center;
-        margin: 1rem 0 
+        margin: 1rem 0;
       }
-  
+
       .date {
         position: absolute;
         left: 8%;
         top: 5%;
       }
-  
+
       .text {
+        display: block;
         hyphens: auto;
+        max-width: 230px;
+        text-align: justify;
       }
-  
+
       .header {
         padding-top: 2rem;
 
@@ -67,62 +126,12 @@
       }
     }
   }
-  
-  .form-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-  
-  
-    .inputs {
-      background: linear-gradient(-45deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25));    
-      box-shadow: 12px 12px 24px 0 rgba(0, 0, 0, 0.2),
-      -12px -12px 24px 0 rgba(255, 255, 255, 0.5);
-      border-radius: 30px;
-      overflow: hidden;
-      padding: 0 0 1rem 0;
-      width: 220px;
-      height: 80px;
-      text-align: center;
-    }
-    
-    .button {
-      button {
-        width: 140px;
-        height: 50px;
-        background: linear-gradient(145deg, rgba(34,193,195,1) 0%, rgba(105, 152, 5, 0.635) 100%);
-        box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
-        -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-        border-radius: 150px;
-        border: none;
-      }
-    }
-
-      .img-ref {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-      }
-  }
-
-  .spiner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-
 }
 
 @media screen and (max-width: 450px) {
   .green {
-
     .form-container {
       flex-direction: column;
-
     }
   }
 }

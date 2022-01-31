@@ -11,11 +11,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { PostFormComponent } from './post-form/post-form.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { EditFormComponent } from './edit-form/edit-form.component';
+import { FilterPipe } from './filter.pipe';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    PostFormComponent,
+    EditFormComponent,
+    FilterPipe,
 
   ],
   imports: [
@@ -29,7 +37,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HttpClientModule,
     MatGridListModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
