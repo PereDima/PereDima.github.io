@@ -46,9 +46,19 @@ export class EditFormComponent implements OnInit, OnChanges {
 
   savePost() {
     if (this.cardId !== null) {
-      const updatedPost: Post = { ...this.editableData, id: this.cardId };
-      this.postService.setEditedFormData(updatedPost);
-      console.log('card data', updatedPost);
+      let updatedPost: Post;
+      if (this.cardId > 100) {
+        this.cardId = 0;
+        updatedPost = { ...this.editableData, id: this.cardId };
+        this.postService.setEditedFormData(updatedPost);
+      } else {
+        updatedPost = { ...this.editableData, id: this.cardId - 1 };
+        this.postService.setEditedFormData(updatedPost);
+        console.log('card data', updatedPost);
+      }
+      // const updatedPost: Post = { ...this.editableData, id: this.cardId - 1};
+      // this.postService.setEditedFormData(updatedPost);
+      // console.log('card data', updatedPost);
     }
 
     this.form.reset();

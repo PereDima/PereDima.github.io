@@ -19,7 +19,7 @@
     <div class="main" *ngIf="posts.length; else noPosts">
         <div class="container" *ngFor="let post of posts | filter: search">
           <button class="delete-btn card-delete-btn" (click)="deletePost(post.id!)"><mat-icon>close</mat-icon></button>
-          <p class="date">{{post.date}}</p>
+          <p class="date">{{date}}</p>
           <div class="header">
             <h3 class="centered">{{post.title | titlecase}}</h3>
           </div>

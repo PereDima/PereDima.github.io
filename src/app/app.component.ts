@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Post } from './interfaces';
 import { PostService } from './post-service';
@@ -16,12 +15,12 @@ export class AppComponent implements OnInit, DoCheck {
   public form!: FormGroup;
   public posts: Post[] = [];
   public ind: number = 0;
+  public date = new Date().toLocaleDateString();
   public postForEdit: any;
   public editedPost: any;
   public search = '';
 
   constructor(
-    private http: HttpClient,
     private postService: PostService,
     private dialog: MatDialog
   ) {
@@ -29,7 +28,7 @@ export class AppComponent implements OnInit, DoCheck {
       this.posts.unshift(addedPost);
     });
     this.postService.editedData.subscribe((readyPost) => {
-      this.editedPost = { ...readyPost, date: new Date().toLocaleDateString() };
+      this.editedPost = readyPost;
     });
   }
 
@@ -39,10 +38,12 @@ export class AppComponent implements OnInit, DoCheck {
     });
   }
 
+
   ngDoCheck() {
     this.postService.setForEditData(this.postForEdit);
+
     if (this.editedPost) {
-      this.posts[this.editedPost.id - 1] = this.editedPost;
+      this.posts[this.editedPost.id] = this.editedPost;
       this.editedPost = null;
     }
   }
@@ -61,8 +62,7 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   public deletePost(id: number) {
-    this.http
-      .delete<void>(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    this.postService.deletePost(id)
       .subscribe(() => {
         this.posts = this.posts.filter((p) => p.id !== id);
       });

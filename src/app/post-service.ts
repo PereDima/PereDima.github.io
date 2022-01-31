@@ -37,10 +37,7 @@ export class PostService {
   }
 
   public deletePost(id: number) {
-    this.http.delete<void>(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .subscribe(resp => {
-      console.log(resp);
-    })
+    return this.http.delete<void>(`https://jsonplaceholder.typicode.com/posts/${id}`)
   }
 
   getFormData(data: Post) {
