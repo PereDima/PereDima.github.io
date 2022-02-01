@@ -36,11 +36,9 @@ export class EditFormComponent implements OnInit, OnChanges {
         Validators.maxLength(230),
       ]),
     });
-
-    console.log('edi post', this.editableData, this.cardId);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.form.setValue(this.editableData);
   }
 
@@ -54,11 +52,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       } else {
         updatedPost = { ...this.editableData, id: this.cardId };
         this.postService.setEditedFormData(updatedPost);
-        console.log('card data', updatedPost);
       }
-      // const updatedPost: Post = { ...this.editableData, id: this.cardId - 1};
-      // this.postService.setEditedFormData(updatedPost);
-      // console.log('card data', updatedPost);
     }
 
     this.form.reset();
