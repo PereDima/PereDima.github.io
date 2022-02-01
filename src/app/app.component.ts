@@ -38,12 +38,11 @@ export class AppComponent implements OnInit, DoCheck {
     });
   }
 
-
   ngDoCheck() {
     this.postService.setForEditData(this.postForEdit);
 
     if (this.editedPost) {
-      this.posts[this.editedPost.id] = this.editedPost;
+      this.posts[this.editedPost.id - 1] = this.editedPost;
       this.editedPost = null;
     }
   }

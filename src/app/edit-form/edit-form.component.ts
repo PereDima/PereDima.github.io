@@ -48,11 +48,11 @@ export class EditFormComponent implements OnInit, OnChanges {
     if (this.cardId !== null) {
       let updatedPost: Post;
       if (this.cardId > 100) {
-        this.cardId = 0;
+        this.cardId = 1;
         updatedPost = { ...this.editableData, id: this.cardId };
         this.postService.setEditedFormData(updatedPost);
       } else {
-        updatedPost = { ...this.editableData, id: this.cardId - 1 };
+        updatedPost = { ...this.editableData, id: this.cardId };
         this.postService.setEditedFormData(updatedPost);
         console.log('card data', updatedPost);
       }
