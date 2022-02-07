@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
    
     return posts.filter(post => {
       return post.title.toLocaleLowerCase().includes(search.toLocaleLowerCase());
-    })
+    }).slice(0, 3);
   }
 
 }

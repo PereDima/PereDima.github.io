@@ -20,7 +20,7 @@
     <mat-error *ngIf="form.get('title')?.touched && form.get('title')?.value.length < 5">
       Title should have at least 5 characters!
     </mat-error>
-    <mat-error *ngIf="form.get('title')?.touched && form.get('title')?.value.length > 55">
+    <mat-error *ngIf="form.get('title')?.touched && form.get('title')?.value.length > 85">
       Title is too long! Max 55 characters!
     </mat-error>
   </mat-form-field>
@@ -42,7 +42,7 @@
     <mat-error *ngIf="form.get('body')?.touched && form.get('body')?.value.length < 15">
       Description should have at least 15 characters!
     </mat-error>
-    <mat-error *ngIf="form.get('body')?.touched && form.get('body')?.value.length > 230">
+    <mat-error *ngIf="form.get('body')?.touched && form.get('body')?.value.length > 400">
       Description is too long! Max 230 characters!
     </mat-error>
   </mat-form-field>

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { FormGroup } from "@angular/forms";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { Post } from "./interfaces";
 import { map } from 'rxjs/operators'
@@ -28,7 +27,7 @@ export class PostService {
   }
   
   public loadPosts() {
-    return this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts?_limit=6')
+    return this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts?_limit=3')
     .pipe(map((post: any) => {
       return post.map((elem: any ) => {
        return {...elem, date: new Date().toLocaleDateString()}
